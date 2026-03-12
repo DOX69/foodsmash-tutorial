@@ -23,3 +23,6 @@ logs
 .env.*
 !.env.example
 .venv
+
+# Gemini settings
+.gemini
