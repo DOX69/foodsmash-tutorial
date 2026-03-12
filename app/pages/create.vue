@@ -123,24 +123,24 @@ const handleSubmit = () => {
   display: inline-flex;
   align-items: center;
   border-radius: 50px;
-  background: linear-gradient(to right, #ff4d4d 55%, #ffffff 45%);
-  border: 2px solid #ff4d4d;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
   padding: 4px 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   min-height: 32px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .tag-pill:hover {
   transform: translateY(-1px);
+  border-color: #cbd5e1;
 }
 
 .tag-text {
-  color: white;
+  color: #000000;
   font-weight: 600;
   font-size: 0.9rem;
   margin-right: 14px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .remove-tag {
@@ -151,13 +151,14 @@ const handleSubmit = () => {
   align-items: center;
   justify-content: center;
   padding: 2px;
-  color: #ff4d4d;
+  color: #64748b;
   border-radius: 50%;
-  transition: background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .remove-tag:hover {
-  background-color: rgba(255, 77, 77, 0.1);
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 input:disabled {
