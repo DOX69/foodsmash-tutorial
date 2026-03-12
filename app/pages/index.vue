@@ -1,5 +1,63 @@
 <script setup lang="ts">
 import { BookOpen, Users, Star } from 'lucide-vue-next';
+import type { Database } from '~/types/database.types'
+
+// Default hardcoded combos
+const defaultCombos = [
+  {
+    id: 'default-1',
+    food_one: 'Marmite',
+    food_two: 'Cheese',
+    description: 'A classic savory delight, loved by many.',
+    tags: ['Savory', 'Classic']
+  },
+  {
+    id: 'default-2',
+    food_one: 'Maltesers',
+    food_two: 'Salt & Vinegar Crisps',
+    description: 'An unexpected sweet and salty crunch.',
+    tags: ['Sweet', 'Salty', 'Crunchy']
+  },
+  {
+    id: 'default-3',
+    food_one: 'Strawberries',
+    food_two: 'Black Pepper',
+    description: 'A surprising burst of sweet and spicy.',
+    tags: ['Fruity', 'Spicy']
+  }
+]
+
+const client = useSupabaseClient<Database>()
+
+const { data: dbCombos } = await useAsyncData('combos', async () => {
+  const { data, error } = await client
+    .from('combos')
+    .select('*')
+    .order('created_at', { ascending: false })
+  
+  if (error) {
+    console.error('Error fetching combos:', error)
+    return null
+  }
+  return data
+})
+
+const displayCombos = computed(() => {
+  if (dbCombos.value && dbCombos.value.length > 0) {
+    return dbCombos.value.map(c => ({
+      id: c.id,
+      title: `${c.food_one} & ${c.food_two}`,
+      description: c.description,
+      tags: c.tags || []
+    }))
+  }
+  return defaultCombos.map(c => ({
+    id: c.id,
+    title: `${c.food_one} & ${c.food_two}`,
+    description: c.description,
+    tags: c.tags
+  }))
+})
 </script>
 
 <template>
@@ -43,19 +101,11 @@ import { BookOpen, Users, Star } from 'lucide-vue-next';
       <h2 class="section-title">Recent Combo's</h2>
       <div class="combo-grid">
         <ComboCard
-          title="Marmite & Cheese"
-          description="A classic savory delight, loved by many."
-          :tags="['Savory', 'Classic']"
-        />
-        <ComboCard
-          title="Maltesers & Salt & Vinegar Crisps"
-          description="An unexpected sweet and salty crunch."
-          :tags="['Sweet', 'Salty', 'Crunchy']"
-        />
-        <ComboCard
-          title="Strawberries & Black Pepper"
-          description="A surprising burst of sweet and spicy."
-          :tags="['Fruity', 'Spicy']"
+          v-for="combo in displayCombos"
+          :key="combo.id"
+          :title="combo.title"
+          :description="combo.description"
+          :tags="combo.tags"
         />
       </div>
     </section>

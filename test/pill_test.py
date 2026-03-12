@@ -8,7 +8,7 @@ def run_test():
         
         # The port might change, but with_server.py usually uses the one provided.
         # Nuxt default is 3000.
-        url = "http://localhost:3000/create"
+        url = "http://localhost:3001/create"
         print(f"Connecting to {url}...")
         
         try:

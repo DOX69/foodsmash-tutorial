@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { X } from 'lucide-vue-next'
+import type { Database } from '~/types/database.types'
+
+const client = useSupabaseClient<Database>()
 
 const foodOne = ref('')
 const foodTwo = ref('')
@@ -32,20 +35,26 @@ const removeTag = (tagToRemove: string) => {
   tags.value = tags.value.filter(tag => tag !== tagToRemove)
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (!foodOne.value || !foodTwo.value || !description.value) {
     alert('Please fill out all required fields.')
     return
   }
   
-  const comboData = {
-    foodOne: foodOne.value,
-    foodTwo: foodTwo.value,
-    description: description.value,
-    tags: tags.value,
-  };
+  const { error } = await client
+    .from('combos')
+    .insert({
+      food_one: foodOne.value,
+      food_two: foodTwo.value,
+      description: description.value,
+      tags: tags.value,
+      rating: 0
+    })
 
-  console.log('New Combo Data:', comboData)
+  if (error) {
+    alert(`Error creating combo: ${error.message}`)
+    return
+  }
 
   // Clear form
   foodOne.value = ''
@@ -53,6 +62,8 @@ const handleSubmit = () => {
   description.value = ''
   tags.value = []
   tagInput.value = ''
+
+  navigateTo('/')
 };
 </script>
 
