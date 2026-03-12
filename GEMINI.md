@@ -3,49 +3,59 @@
 This document provides essential information for Gemini CLI to understand and interact effectively with the FoodSmash project.
 
 ## Project Overview
-FoodSmash is a dummy application built with **Nuxt 3** designed to showcase and teach the capabilities of Gemini CLI. Its theme centers around a community-driven platform for sharing and discovering unusual food combinations.
+FoodSmash is a premium Nuxt 3 application designed to showcase unusual food combinations. It prioritizes **visual excellence** and **modern UI/UX**, utilizing a custom dark theme with sleek transitions and responsive design.
 
 ### Core Stack
 - **Framework:** [Nuxt 3](https://nuxt.com/) (version 4.2.1)
 - **Frontend Library:** [Vue 3](https://vuejs.org/) (Composition API)
 - **Icons:** [Lucide Vue Next](https://lucide.dev/guide/packages/lucide-vue-next)
-- **Testing:** [Vitest](https://vitest.dev/) with `@nuxt/test-utils`
+- **Testing:** [Vitest](https://vitest.dev/) & Python-based [Playwright](https://playwright.dev/python/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Style:** Vanilla CSS (No Tailwind)
+
+## Agent & Skill Integration
+This project uses the `aph` tool for skill management. Skills are stored in `.agent/skills/`.
+- **Active Skills:** Test-Driven Development, Systematic Debugging, UI/UX Pro Max, Clean Code, Brainstorming, and more.
+- **Workflow:** Always refer to `.agent/rules/` for core development mandates.
+- **Skill Usage:** Use `aph search` and `aph add` to manage specialized capabilities.
 
 ## Directory Structure
-- `app/`: The primary source directory for the application.
-    - `pages/`: Vue components that define the application's routes (e.g., `index.vue`, `create.vue`).
-    - `layouts/`: Reusable layouts for pages (e.g., `default.vue`).
-    - `assets/css/`: Global stylesheets (`main.css`).
-    - `app.vue`: The root application component.
-- `test/`: Contains the test suite.
-    - `test/nuxt/`: Specialized tests that run in a Nuxt environment using `mountSuspended`.
-- `public/`: Static assets accessible directly.
-- `nuxt.config.ts`: Nuxt-specific configuration (modules, CSS, etc.).
-- `vitest.config.ts`: Configuration for the Vitest test runner, including multi-project support for unit and Nuxt environment tests.
+- `app/`: Primary source directory.
+    - `pages/`: Route-level Vue components.
+    - `layouts/`: Global application layouts.
+    - `assets/css/`: Global styles (`main.css`).
+- `.agent/`: AI agent configuration and skills.
+    - `skills/`: Installed `aph` skills.
+    - `rules/`: Mandates for agent behavior and coding standards.
+- `test/`: Test suite.
+    - `test/nuxt/`: Vitest component tests using `mountSuspended`.
+    - `test/pill_test.py`: E2E validation script using Playwright (Python).
+- `nuxt.config.ts`: Nuxt 4 compatibility and module configuration.
 
 ## Key Commands
 - **Install Dependencies:** `npm install`
-- **Run Development Server:** `npm run dev` (Available at `http://localhost:3000`)
-- **Run Tests:** `npm test` or `npx vitest`
-- **Build for Production:** `npm run build`
-- **Preview Production Build:** `npm run preview`
+- **Run Dev Server:** `npm run dev`
+- **Run Unit Tests:** `npm test`
+- **Run Python E2E:** `python test/pill_test.py` (Requires `playwright` python package)
+- **Skill Management:** `aph list --installed`, `aph search <term>`, `aph add <skill>`
 
 ## Development Conventions
-- **Composition API:** Always use `<script setup lang="ts">` in Vue components.
-- **Testing:** New features or bug fixes should be accompanied by tests in `test/nuxt/`. Use `mountSuspended` for testing components that require a Nuxt environment.
-- **Styling:** Custom styles are managed in `app/assets/css/main.css`. Avoid adding inline styles where possible.
-- **Lucide Icons:** Use `lucide-vue-next` for iconography.
-- **Nuxt 4 Transition:** The project is configured with a `compatibilityDate` of `2025-07-15`, indicating preparation for Nuxt 4 features.
+- **TDD First:** Always write failing tests in `test/nuxt/` before implementation.
+- **Composition API:** Strict use of `<script setup lang="ts">`.
+- **Vanilla CSS:** Use custom CSS in `app/assets/css/main.css`. Avoid Tailwind and inline styles.
+- **Visual Mandate:** Interfaces must feel premium. Use the established HSL/Hex palette and smooth transitions.
+- **Semicolons:** Do not use semicolons in JS/TS.
+- **Imports:** Use relative imports; avoid path aliases.
+
+## Styling & Theme
+The project uses a curated dark theme defined in `app/assets/css/main.css`:
+- **Background:** `#1A1A2E` (Deep Navy)
+- **Component BG:** `#2C2C54`
+- **Primary Accent:** `#ff74ef` (Pink)
+- **Secondary Accent:** `#86e5ff` (Cyan)
+- **Fonts:** 'Poppins' (Sans) for body, 'Lora' (Serif) for headings.
 
 ## Future Interactions
-When performing tasks in this repository:
-1.  **Context:** Refer to `app/pages/` for existing route logic and `app/layouts/` for global UI structure.
-2.  **Test-driven Development (TDD) skill use:** Prioritize writing tests in `test/nuxt/` and `test/` before or alongside implementation.
-3.  **Nuxt Modules:** Check `nuxt.config.ts` before adding new dependencies to ensure they are properly integrated.
-
-# Additional Coding Preferences:
-- Do not use semicolons for any JavaScript/TypeScript.
-- Do not use Tailwind classes in compenet templates.
-- Keep project dependencies minimal.
-- Use relative imports and NOT a path alias.
+1.  **Context:** Check `.agent/rules/web-development-rules.md` for UI/UX standards.
+2.  **Verification:** Before completing a task, ensure both Vitest and (if applicable) Playwright tests pass.
+3.  **New Features:** Start by brainstorming with the `brainstorming` skill and then follow the TDD workflow.
