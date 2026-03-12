@@ -41,7 +41,7 @@ FoodSmash is a dummy application built with **Nuxt 3** designed to showcase and 
 ## Future Interactions
 When performing tasks in this repository:
 1.  **Context:** Refer to `app/pages/` for existing route logic and `app/layouts/` for global UI structure.
-2.  **TDD:** Prioritize writing tests in `test/nuxt/` before or alongside implementation.
+2.  **Test-driven Development (TDD) skill use:** Prioritize writing tests in `test/nuxt/` and `test/` before or alongside implementation.
 3.  **Nuxt Modules:** Check `nuxt.config.ts` before adding new dependencies to ensure they are properly integrated.
 
 # Additional Coding Preferences:
